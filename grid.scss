@@ -6,16 +6,10 @@ $md-width: 970px;
 $lg-width: 1170px;
 $pad: 10px;
 
-[class*='col-'] {
-  float: left;
-  padding-right: $pad;
+@mixin box-sized {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
-
-  [class*='row'] &:last-of-type {
-    padding-right: 0;
-  }
 }
 
 @mixin cols($number_of_cols) {
@@ -33,6 +27,7 @@ $pad: 10px;
 }
 
 .container {
+  @include box-sized;
   position: relative;
   width: 100%;
   max-width: $sm-width;
@@ -48,10 +43,15 @@ $pad: 10px;
   }
 }
 
-.row {
-  margin: 0 0 $pad 0;
+.container-fluid {
+  @extend .container;
+  max-width: 100%;
+}
 
+.row {
+  @include box-sized;
   @include reset_cols;
+  margin: 0 0 $pad 0;
 
   &:after {
     content: "";
@@ -69,7 +69,9 @@ $pad: 10px;
 
 .row-xs {
   @extend .row;
-  @include cols($column-number);
+  [class*='col-'] {
+    width: 100%;
+  }
 }
 
 .row-sm {
@@ -90,5 +92,15 @@ $pad: 10px;
   @extend .row;
   @media screen and (min-width: $lg-width + $pad) {
     @include cols($column-number);
+  }
+}
+
+[class*='col-'] {
+  @include box-sized;
+  float: left;
+  padding-right: $pad;
+
+  [class*='row'] &:last-of-type {
+    padding-right: 0;
   }
 }
