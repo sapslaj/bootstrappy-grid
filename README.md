@@ -1,4 +1,4 @@
-Sassy Grid
+Bootstrappy Grid
 ====
 
 Small, compact Bootstrap-inspired grid system written with Sass.
